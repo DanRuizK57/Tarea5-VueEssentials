@@ -15,7 +15,7 @@
         <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td>Mark</td>
+                <td>{{nombre}}</td>
                 <td>Hombre</td>
                 <td>Estados Unidos</td>
                 <td>Imagen</td>
@@ -90,8 +90,20 @@
   </template>
   
   <script>
+    import usuarios from '../json/users.json'
+
+    const miss = usuarios.filter(usuario => usuario.name.title === "Miss")
+    const nombre = miss[3].name.title
   export default {
     name: 'ListaUsuarios',
+    data() {
+        return {
+            nombre: ""
+        };
+    },
+    mounted() {
+        this.nombre = nombre;
+    }
   }
   </script>
   
