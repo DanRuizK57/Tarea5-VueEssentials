@@ -14,87 +14,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>{{nombre}}</td>
-                <td>{{genero}}</td>
-                <td>{{pais}}</td>
+            <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
+                <th scope="row">#{{ index + 1 }}</th>
+                <td>{{usuario.name.title}} {{ usuario.name.first }} {{ usuario.name.last }}</td>
+                <td>{{usuario.gender}}</td>
+                <td>{{usuario.location.country}}</td>
                 <td>
-                    <img :src="imagen" alt="Imagen de usuario" />    
+                    <img :src="usuario.picture.medium" alt="Imagen de usuario" />    
                 </td>
-                <td>{{rangoEdad}}</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Hombre</td>
-                <td>Inglaterra</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Jeny</td>
-                <td>Mujer</td>
-                <td>Australia</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>Pepe</td>
-                <td>Hombre</td>
-                <td>España</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">5</th>
-                <td>Juan</td>
-                <td>Hombre</td>
-                <td>México</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">6</th>
-                <td>Catalina</td>
-                <td>Mujer</td>
-                <td>Argentina</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">7</th>
-                <td>Valentina</td>
-                <td>Mujer</td>
-                <td>Chile</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">8</th>
-                <td>José</td>
-                <td>Hombre</td>
-                <td>Uruguay</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">9</th>
-                <td>Joao</td>
-                <td>Hombre</td>
-                <td>Brasil</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
-            </tr>
-            <tr>
-                <th scope="row">10</th>
-                <td>Angélica</td>
-                <td>Mujer</td>
-                <td>Colombia</td>
-                <td>Imagen</td>
-                <td>Mayor de Edad (+18)</td>
+                <td v-if="usuario.dob.age > 18">Mayor de Edad (+18)</td>
+                <td v-else>Menor de Edad (-18)</td>
             </tr>
         </tbody>
 </table>
@@ -105,36 +34,15 @@
   <script>
     import usuarios from '../json/users.json'
 
-    const miss = usuarios.filter(usuario => usuario.name.title === "Miss")
-    let nombre = miss[3].name.title + " " + miss[3].name.first + " " + miss[3].name.last
-    let genero = miss[3].gender
-    let pais = miss[3].location.country
-    let imagen = miss[3].picture.medium
-    let rangoEdad;
-
-    if (miss[3].dob.age > 18){
-        rangoEdad = "Mayor de edad (+18)"
-    } else {
-        rangoEdad = "Menor de edad (-18)"
-    }
-
   export default {
     name: 'ListaUsuarios',
     data() {
         return {
-            nombre: "",
-            genero: "",
-            pais: "",
-            imagen: "",
-            rangoEdad: ""
+            usuarios: []
         };
     },
     mounted() {
-        this.nombre = nombre;
-        this.genero = genero;
-        this.pais = pais;
-        this.imagen = imagen;
-        this.rangoEdad = rangoEdad;
+        this.usuarios = usuarios;
     }
   }
   </script>
